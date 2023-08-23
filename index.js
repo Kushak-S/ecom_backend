@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/user',userRoutes);
-app.use('/product',itemRoutes);
+app.use('/item',itemRoutes);
 app.use('/cart',cartRoutes);
 app.use('/order',orderRoutes);
 

@@ -9,13 +9,14 @@ module.exports = {
             var cartItems = [];
             const uid = req.params.uid;
             const cart = await Cart.findOne({uid});
-            if(!cart) return res.status(200).send({cartItems});
+            if(!cart) return res.status(200).send({total_count:0,cartItems});
             for(const it of cart.items){
                 const Type = helper.getType(it.type);
                 const item = await Type.findById(it.id);
                 if(item) cartItems.push({type: it.type, quantity: it.quantity, ...item._doc});
             }
-            res.status(200).send({cartItems});
+            const total_count = cartItems.length;
+            res.status(200).send({total_count, cartItems});
         }catch(err){
             res.status(500).send(err);
         }

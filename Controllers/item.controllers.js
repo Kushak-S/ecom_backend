@@ -4,12 +4,12 @@ const reqValidator = require('../Helpers/req.validator');
 
 module.exports = {
     getAll: async (req, res)=>{
-        const Type = helper.getType(req.query.type);
-        if(!Type) return res.status(400).send('Invalid request!');
-
         try{
+            const Type = helper.getType(req.query.type);
+            if(!Type) return res.status(400).send('Invalid request!');
             const items = await Type.find();
-            res.status(200).send(items);
+            const total_count = items.length;
+            res.status(200).send({total_count , items});
         }catch(err){
             console.log(err);
             res.status(500).send(err);

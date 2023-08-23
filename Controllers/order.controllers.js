@@ -9,7 +9,8 @@ module.exports = {
         try{
             const orders = await Order.find();
             if(!orders) return res.status(200).send('No orders found!');
-            res.status(200).send(orders);
+            const total_count = orders.length;
+            res.status(200).send({total_count, orders});
         }catch(err){
             res.status(500).send(err);
         }
@@ -18,9 +19,10 @@ module.exports = {
     getByUid: async (req, res)=>{
         try{
             const uid = req.params.uid;
-            const order = await Order.find({uid});
-            if(!order) return res.status(200).send('No orders found!');
-            res.status(200).send(order);
+            const orders = await Order.find({uid});
+            if(!orders) return res.status(200).send('No orders found!');
+            const total_count = orders.length;
+            res.status(200).send({total_count, orders});
         }catch(err){
             res.status(500).send(err);
         }

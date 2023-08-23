@@ -37,7 +37,7 @@ module.exports = {
             const user_password = hashedPassword.toString(cryptojs.enc.Utf8);
             if(user_password !== value.password) return res.status(401).send('Wrong password!');
             const { password, ...verifiedUser} = user._doc;
-            const token = jwt.sign_jwt({id: verifiedUser._id, isAdmin: verifiedUser.isAdmin});
+            const token = 'Bearer ' + jwt.sign_jwt({id: verifiedUser._id, isAdmin: verifiedUser.isAdmin});
             res.status(200).send({...verifiedUser, token});
         }catch(err){
             res.status(500).send(err);
